@@ -1,9 +1,9 @@
-export function buildRegionQuery(query, regionIds = [], ) {
+export function buildRegionQuery(query, regionIds = []) {
     const regions = regionIds.map(id => {
         return `reg_${id}: region(id: "${id}") {
         id,
         name,
-    ${query.split('\n').map(d => `    ${d}`).join('\n')}
+${query}
     }`;
     });
     return `query RegionsQuery {
@@ -17,12 +17,21 @@ export function buildRegionQuery(query, regionIds = [], ) {
  */
 export function buildAllRegionsQuery(query, level, parentId = null) {
     return `query AllRegionsQuery {
-    allRegions() {
-        regions(${level<3 ? 'nuts:'+level : 'lau:'+(level-3)}${parentId ? `, parentId: "${parentId}"`: ''}) {
+    allRegions(page: 0) {
+        regions(${level < 3 ? 'nuts:' + level : 'lau:' + (level - 3)}${
+        parentId ? `, parent: "${parentId}"` : ''
+    }) {
             id
             name
-    ${query.split('\n').map(d => `        ${d}`).join('\n')}
+    ${query
+        .split('\n')
+        .map(d => `        ${d}`)
+        .join('\n')}
         }
     }
 }`;
+}
+
+export function getYearsQuery(statistic, merkmal) {
+    return buildRegionQuery(`years: ${merkmal}(statistic: R${statistic}) { year }`, ['10']);
 }

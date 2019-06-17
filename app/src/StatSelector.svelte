@@ -67,6 +67,6 @@
         <button
             style="margin-top:10px"
             on:click={addMerkmal}
-            class="btn btn-primary">Gewähltes Merkmal hinzufügen</button>
+            class="btn btn-outline-primary">Gewähltes Merkmal hinzufügen</button>
     </div>
 </div>

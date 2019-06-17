@@ -30,8 +30,8 @@
 
     function onSelect(noFocus) {
         if (next && !noFocus) next.focus();
-        if (next) next.$set({startsWith: value.id });
-        if (parent && value) parent.syncId(value.id);
+        if (next) next.$set({startsWith: value ? value.id : '' });
+        if (parent && value) parent.syncId(value ? value.id : '');
     }
 </script>
 

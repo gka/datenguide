@@ -110,14 +110,22 @@
         }
     }
 
+    function reset() {
+        value = null;
+        query = '';
+        selectedIndex = -1;
+        dispatch('select', { item: null });
+    }
+
 </script>
 
 <style>
     label {
-        font-size: 14px;
+        font-size: 13px;
         text-transform: uppercase;
         color: #888;
-        margin-bottom: 3px;
+        margin-top: 5px;
+        margin-bottom: 2px;
     }
     .form-group {
         margin-bottom:0;
@@ -129,7 +137,7 @@
     input {
         width: 100%
     }
-    button {
+    button.drop {
         background: white;
         border: 0;
         border-left: 1px solid #ced4da;
@@ -148,12 +156,12 @@
         opacity: 0.3;
         transition: opacity 0.3s;
     }
-    button:hover svg,
-    input:hover + button svg,
-    input:focus + button svg {
+    button.drop:hover svg,
+    input:hover + button.drop svg,
+    input:focus + button.drop svg {
         opacity: 0.6;
     }
-    input:focus + button:hover svg {
+    input:focus + button.drop:hover svg {
         opacity: 0.8;
     }
     .dropdown.icon input {
@@ -213,7 +221,7 @@
         z-index: 9999;
         width: 100%;
         position: absolute;
-        top: 4.2ex;
+        top: 40px;
         background-color: white;
         border: 1px solid #cccccc;
         margin-top: 0px;
@@ -230,6 +238,16 @@
     .dropdown-results li:hover {
         background-color: #18a1cd33;
         cursor: pointer;
+    }
+    button.close {
+        position: absolute;
+        top: 5px;
+        right: 46px;
+        opacity: 0.2;
+        transition: opacity 0.2s;
+    }
+    button.close:hover {
+        opacity: 1;
     }
 </style>
 
@@ -253,10 +271,15 @@
                     on:keydown="{event => keyup(event)}"
                     on:input="{d => search()}"
                 />
+                {#if !open && value}
+                <button on:click|stopPropagation={reset} type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {/if}
                 {#if icon}
                 <i class="icon {icon}"></i>
                 {/if}
-                <button on:click="{d=> buttonOpen()}">
+                <button class="drop" on:click="{d=> buttonOpen()}">
                     <slot name="button">
                         <svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg>
                     </slot>

@@ -74,7 +74,7 @@
     <label class="custom-control-label" for="{id}{i}">{@html option.title}</label>
     {#if option.id === 'region' && mode === 'region'}
     <div class="ctrls row">
-        <div class="col-8">
+        <div class="col-10">
             {#if regions.length}
             <ul class="selected-regions">
                 {#each regions as region,i}
@@ -99,7 +99,7 @@
                 style="margin-top:10px"
                 on:click={addRegion}
                 disabled="{!regBundesland && !regLandkreis && !regGemeinde}"
-                class="btn btn-primary">Gewählte Region hinzufügen</button>
+                class="btn btn-outline-primary">Gewählte Region hinzufügen</button>
         </div>
     </div>
     {:else if option.id === 'gemeinden' && mode === 'gemeinden'}
