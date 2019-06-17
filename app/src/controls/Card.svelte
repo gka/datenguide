@@ -1,5 +1,6 @@
 <script>
 	export let title = '';
+	export let noBorderTop = false;
 </script>
 
 <style>
@@ -8,7 +9,7 @@
 	}
 </style>
 
-<div class="card shadow-sm">
+<div class:rounded-0={noBorderTop} class:border-top-0={noBorderTop} class="card">
 	<div class="card-body">
 		<h5 class="card-title">{title}</h5>
 		<slot />

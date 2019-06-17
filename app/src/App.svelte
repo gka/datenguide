@@ -1,5 +1,6 @@
 <script>
     import Card from './controls/Card.svelte';
+    import Tabs from './controls/Tabs.svelte';
     import NavBar from './NavBar.svelte';
     import RegionSelector from './RegionSelector.svelte';
     import StatSelector from './StatSelector.svelte';
@@ -28,6 +29,9 @@
         runQuery(query, {}).then(data => {
             // console.log(data);
             result = data.data;
+            if (selectedTab === 'query') {
+                selectedTab = 'json';
+            }
         });
     }
 
@@ -46,7 +50,13 @@
             regionMode.substr(0,4) !== 'alle' ?
                 (parentRegion ? parentRegion.id : undefined)  : undefined);
 
+    const previewTabs = [
+        {id: 'query', title: 'GraphQL Query'},
+        {id: 'json', title: 'Ergebnis (JSON)'},
+        {id: 'csv', title: 'Ergebnis (CSV)'}
+    ];
 
+    let selectedTab = 'query';
 
 </script>
 
@@ -63,7 +73,13 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4" style="padding-bottom: 20px">
-            <Card title="Daten suchen für...">
+
+            <Card title="Statistik und Merkmale wählen">
+                <StatSelector
+                    bind:values={statistics} />
+            </Card>
+
+            <Card title="Regionen auswählen">
                 <RegionSelector
                     bind:mode={regionMode}
                     bind:regions
@@ -71,11 +87,6 @@
                     bind:regLandkreis={landkreis}
                     bind:regGemeinde={gemeinde}
                     />
-            </Card>
-
-            <Card title="Statistik und Merkmale wählen">
-                <StatSelector
-                    bind:values={statistics} />
             </Card>
 
             <Card title="Zeitraum auswählen">
@@ -87,8 +98,18 @@
              </button>
         </div>
         <div class="col-md-8">
+
             <div style="position: sticky; top: 20px">
-                <pre>{JSON.stringify(result, null, 2)}</pre>
+                <Tabs tabs="{previewTabs}" bind:selected={selectedTab} />
+                <Card noBorderTop={true}>
+                    {#if selectedTab === 'query'}
+                    <pre>{query}</pre>
+                    {:else if selectedTab === 'json'}
+                    <pre>{JSON.stringify(result, null, 2)}</pre>
+                    {:else if selectedTab === 'csv'}
+                    <i class="text-muted">TODO</i>
+                    {/if}
+                </Card>
             </div>
         </div>
 
