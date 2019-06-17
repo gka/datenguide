@@ -1,0 +1,8 @@
+html, body {
+	font-family: IBM Plex Sans,sans-serif;
+}
+
+.form-control::placeholder {
+    color: #9da6af;
+    opacity: 1;
+}
