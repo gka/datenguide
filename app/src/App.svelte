@@ -72,7 +72,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-4" style="padding-bottom: 20px">
+        <div class="col-md-5" style="padding-bottom: 20px">
 
             <Card title="Statistik und Merkmale wählen">
                 <StatSelector
@@ -97,7 +97,7 @@
                 <span class="oi oi-signal"></span> Anfrage starten
              </button>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-7">
 
             <div style="position: sticky; top: 20px">
                 <Tabs tabs="{previewTabs}" bind:selected={selectedTab} />

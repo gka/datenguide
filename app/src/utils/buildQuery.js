@@ -18,7 +18,7 @@ ${query}
 export function buildAllRegionsQuery(query, level, parentId = null) {
     return `query AllRegionsQuery {
     allRegions(page: 0) {
-        regions(${level < 3 ? 'nuts:' + level : 'lau:' + (level - 3)}${
+        regions(${level < 4 ? 'nuts:' + level : 'lau:' + (level - 3)}${
         parentId ? `, parent: "${parentId}"` : ''
     }) {
             id
