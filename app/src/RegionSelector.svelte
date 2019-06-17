@@ -57,9 +57,9 @@
         margin-top: 5px;
         margin-bottom: 10px;
     }
+
 </style>
 
-<h5>Daten suchen für...</h5>
 
 {#each options as option,i}
 <div class="custom-control custom-radio">
@@ -78,7 +78,7 @@
             {#if regions.length}
             <ul class="selected-regions">
                 {#each regions as region,i}
-                <li>{@html region.display} <a href="#delete" on:click|preventDefault="{() => removeRegion(i)}"><span class="oi oi-trash"></span></a></li>
+                <li>{@html region.display} <a class="text-danger" href="#delete" on:click|preventDefault="{() => removeRegion(i)}"><span class="oi oi-trash"></span></a></li>
                 {/each}
             </ul>
             {/if}

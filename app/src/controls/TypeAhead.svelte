@@ -112,53 +112,9 @@
 
 </script>
 
-<svelte:window on:click="{() => close()}" />
-
-<div class="form-group">
-    {#if label}
-    <label>{@html label}</label>
-    {/if}
-    <div on:click|stopPropagation="{d => d}" style="width: {width}">
-        <div class:icon class:selection="{!open && selection}" class="dropdown" on:click="{(e) => onClick(e)}">
-
-            <div class="typeahead">
-                <input
-                    class="form-control"
-                    type="search"
-                    bind:this={searchInput}
-                    placeholder="{open ? placeholder : selection||placeholder}"
-                    bind:value={query}
-                    on:keydown="{event => keyup(event)}"
-                    on:input="{d => search()}"
-                />
-                {#if icon}
-                <i class="icon {icon}"></i>
-                {/if}
-                <button on:click="{d=> buttonOpen()}">
-                    <slot name="button">
-                        <svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg>
-                    </slot>
-                </button>
-            </div>
-
-            {#if open && firstMatches.length}
-            <ul bind:this={dropdown} class="dropdown-results">
-                {#each firstMatches as item,i}
-
-                <li class:selected="{i===selectedIndex}" style="{item.style||''}" on:click|stopPropagation="{() => select(item)}">
-                    {@html item.display || item.title || item.name}
-                </li>
-
-                {/each}
-            </ul>
-            {/if}
-        </div>
-    </div>
-</div>
-
 <style>
     label {
-        font-size: 15px;
+        font-size: 14px;
         text-transform: uppercase;
         color: #888;
         margin-bottom: 3px;
@@ -257,7 +213,7 @@
         z-index: 9999;
         width: 100%;
         position: absolute;
-        top: 47px;
+        top: 4.2ex;
         background-color: white;
         border: 1px solid #cccccc;
         margin-top: 0px;
@@ -276,3 +232,49 @@
         cursor: pointer;
     }
 </style>
+
+
+<svelte:window on:click="{() => close()}" />
+
+<div class="form-group">
+    {#if label}
+    <label>{@html label}</label>
+    {/if}
+    <div on:click|stopPropagation="{d => d}" style="width: {width}">
+        <div class:icon class:selection="{!open && selection}" class="dropdown" on:click="{(e) => onClick(e)}">
+
+            <div class="typeahead">
+                <input
+                    class="form-control"
+                    type="search"
+                    bind:this={searchInput}
+                    placeholder="{open ? placeholder : selection||placeholder}"
+                    bind:value={query}
+                    on:keydown="{event => keyup(event)}"
+                    on:input="{d => search()}"
+                />
+                {#if icon}
+                <i class="icon {icon}"></i>
+                {/if}
+                <button on:click="{d=> buttonOpen()}">
+                    <slot name="button">
+                        <svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg>
+                    </slot>
+                </button>
+            </div>
+
+            {#if open && firstMatches.length}
+            <ul bind:this={dropdown} class="dropdown-results">
+                {#each firstMatches as item,i}
+
+                <li class:selected="{i===selectedIndex}" style="{item.style||''}" on:click|stopPropagation="{() => select(item)}">
+                    {@html item.display || item.title || item.name}
+                </li>
+
+                {/each}
+            </ul>
+            {/if}
+        </div>
+    </div>
+</div>
+

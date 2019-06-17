@@ -1,4 +1,5 @@
 <script>
+    import Card from './controls/Card.svelte';
     import NavBar from './NavBar.svelte';
     import RegionSelector from './RegionSelector.svelte';
     import StatSelector from './StatSelector.svelte';
@@ -51,7 +52,7 @@
 
 <style>
     textarea, pre { font-family: monospace; }
-    .card { padding: 20px; margin-bottom: 20px;}
+    .card { margin-bottom: 20px;}
     .container-fluid {
         margin-top: 20px;
     }
@@ -62,7 +63,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
-            <div class="card">
+            <Card title="Daten suchen für...">
                 <RegionSelector
                     bind:mode={regionMode}
                     bind:regions
@@ -70,19 +71,18 @@
                     bind:regLandkreis={landkreis}
                     bind:regGemeinde={gemeinde}
                     />
-            </div>
+            </Card>
         </div>
         <div class="col-md-4">
-            <div class="card">
+            <Card title="Statistik und Merkmale wählen">
                 <StatSelector
                     bind:values={statistics} />
-            </div>
+            </Card>
         </div>
         <div class="col-md-4">
-            <div class="card">
-                <h5>Query Preview</h5>
+            <Card title="Query Preview">
                 <pre>{query}</pre>
-            </div>
+            </Card>
         </div>
     </div>
  <!--    <button class="btn btn-outline-secondary" on:click="{()=>doQuery()}">run query</button>

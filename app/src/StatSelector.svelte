@@ -8,27 +8,52 @@
     let merkmalArgValue = null;
 
     export let values = [];
+    let valuesByKey = {};
+    $: {
+        valuesByKey = {};
+        values.forEach(value => {
+            valuesByKey[value.key] = value;
+        });
+    };
 
     function addMerkmal() {
-        values.push({
-            display: `${statistik.name}<br>${merkmal.name}<span style="color:#888">${merkmalArg ? ` (${merkmalArgValue.name})` : ''}</span>`,
-            statistik: statistik.id,
-            merkmal: merkmal.id,
-            arg: merkmalArg ? merkmalArg.id : null,
-            value: merkmalArg && merkmalArgValue ? merkmalArgValue.id : null
-        });
+        const newKey = `${statistik.id}/${merkmal.id}/${merkmalArg ? merkmalArg.id : '-'}`;
+        if (!valuesByKey[newKey]) {
+            valuesByKey[newKey] = {
+                key: newKey,
+                statistik: statistik.id,
+                statistikName: statistik.name,
+                merkmal: merkmal.id,
+                merkmalName: merkmal.name,
+                arg: merkmalArg ? merkmalArg.id : null,
+                values: []
+            };
+            values.push(valuesByKey[newKey]);
+        }
+        if (merkmalArgValue) valuesByKey[newKey].values.push(merkmalArgValue);
+        values = values;
+    }
+
+    function removeMarkmal(index) {
+        values.splice(index, 1);
         values = values;
     }
 </script>
 
-<h5>Statistik und Merkmale wählen</h5>
+
 
 <div class="row">
     <div class="col">
         {#if values.length}
         <ul>
             {#each values as val,i}
-            <li>{@html val.display}</li>
+            <li>
+                {val.statistikName}<br />
+                &nbsp;&nbsp;&gt;&nbsp;{val.merkmalName} {#if val.values.length}
+                <span title="{val.values.map(d => d.name).join(', ')}" style="color:#888">({val.values.length} Werte)</span>
+                {/if}
+                <a class="text-danger" href="#delete" on:click|preventDefault="{() => removeMarkmal(i)}"><span class="oi oi-trash"></span></a>
+            </li>
             {/each}
         </ul>
         {/if}
