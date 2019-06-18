@@ -63,7 +63,12 @@
         {id: 'wideRegion', title: 'eine Zeile pro Region'},
         {id: 'wideTime', title: 'eine Zeile pro Jahr'}
     ];
-
+    let idMode = 'id';
+    const idModeOptions = [
+        {id: 'id', title: 'nur Kürzel'},
+        {id: 'name', title: 'nur Namen'},
+        {id: 'both', title: 'Namen und Kürzel'}
+    ];
 </script>
 
 <style>
@@ -120,13 +125,15 @@
                     {:else if selectedTab === 'json'}
                     <pre>{JSON.stringify(result, null, 2)}</pre>
                     {:else if selectedTab === 'csv'}
-                    CSV-Format:&nbsp;&nbsp;<Radio inline={true} bind:value={csvMode} options={csvModeOptions} />
+                    CSV-Format:&nbsp;&nbsp;<Radio inline={true} bind:value={csvMode} options={csvModeOptions} /><br>
+                    Bezeichnungen:&nbsp;&nbsp;<Radio inline={true} bind:value={idMode} options={idModeOptions} /><br>
                     <pre style="margin-top:20px">{resultToCSV(result,
                         regionMode,
                         regionMode === 'region' ? regions : parentRegion,
                         statistics,
                         times,
-                        csvMode
+                        csvMode,
+                        idMode
                     )}</pre>
                     {/if}
                 </Card>
