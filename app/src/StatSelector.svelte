@@ -26,6 +26,7 @@
                 merkmal: merkmal.id,
                 merkmalName: merkmal.name,
                 arg: merkmalArg ? merkmalArg.id : null,
+                argName: merkmalArg ? merkmalArg.name : null,
                 values: []
             };
             values.push(valuesByKey[newKey]);

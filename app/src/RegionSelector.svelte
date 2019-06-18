@@ -4,25 +4,25 @@
     import SelectGemeinde from './controls/SelectGemeinde.svelte';
 
     const options = [{
-        id: 'region',
-        title: 'einzelne Regionen'
-    }, {
-        id: 'gemeinden',
-        title: 'alle Gemeinden eines Landkreises'
-    },{
-        id: 'landkreise',
-        title: 'alle Landkreise eines Bundeslands'
-    }, {
         id: 'alleLaender',
         title: 'alle Bundesländer'
     }, {
         id: 'alleKreise',
         title: 'alle Landkreise <span style="color:#888">(kann etwas dauern)</span>'
-    } ];
+    },{
+        id: 'landkreise',
+        title: 'alle Landkreise eines Bundeslands'
+    }, {
+        id: 'gemeinden',
+        title: 'alle Gemeinden eines Landkreises'
+    },{
+        id: 'region',
+        title: 'einzelne Regionen'
+    }];
 
     const id = Math.round(Math.random()*1e7).toString(36);
 
-    export let mode = 'region';
+    export let mode = 'alleLaender';
     export let regBundesland = null;
     export let regLandkreis = null;
     export let regGemeinde = null;

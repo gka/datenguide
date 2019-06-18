@@ -1,13 +1,15 @@
 <script>
     export let options = [];
     export let value = '';
+    export let inline = false;
 
     const id = Math.round(Math.random()*1e7).toString(36);
 
 </script>
 
 {#each options as option,i}
-<div class="custom-control custom-radio">
+<div class="custom-control custom-radio"
+class:custom-control-inline={inline}>
     <input
         bind:group={value}
         value={option.id}
@@ -17,16 +19,5 @@
         class="custom-control-input"
     >
     <label class="custom-control-label" for="{id}{i}">{option.title}</label>
-    <div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Bundesland</label>
-            <TypeAhead
-                placeholder="auswählen..."
-                width="100%"
-                bind:value={bundesland}
-                items="{bundeslaender}"
-                />
-        </div>
-    </div>
 </div>
 {/each}

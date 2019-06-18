@@ -9,7 +9,7 @@
         <a class="nav-link"
         	on:click|preventDefault="{() => selected = tab.id}"
         	class:active={selected === tab.id}
-        	href="#">{tab.title}</a>
+        	href="#${tab.id}">{tab.title}</a>
     </li>
     {/each}
 </ul>
