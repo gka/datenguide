@@ -53,10 +53,9 @@ export default function resultToCSV(
         });
     } else if (csvMode === 'wideRegion') {
         regionData.forEach(region => {
-            const d = {
-                ags: region.id,
-                region: region.name
-            };
+            const d = {};
+            if (idMode === 'id' || idMode === 'both') d.ags = region.id;
+            if (idMode === 'name' || idMode === 'both') d.region = region.name;
             statistics.forEach((stat, i) => {
                 const argValueMap = _keyBy(stat.values, 'id');
                 region[`s${i}`].forEach(row => {
@@ -118,7 +117,7 @@ export default function resultToCSV(
                         key.push(format({ id: row.type, name: argValueMap[row.type].name }));
                     }
                     if (idMode === 'id' && regionData.length > 1 && key.length === 1) {
-                        key[0] = `ags:${key[0]}`;
+                        key[0] = `r${key[0]}`;
                     }
                     d[key.join('/')] = row.value;
                 });

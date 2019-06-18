@@ -32,8 +32,8 @@
 
     function onSelect() {
         args = value.args;
-        arg = args[0];
-        onSelectArg();
+        // arg = args[0];
+        // onSelectArg();
     }
 
     function onSelectArg() {

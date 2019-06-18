@@ -1,4 +1,5 @@
 <script>
+    import { beforeUpdate } from 'svelte';
     import Card from './controls/Card.svelte';
     import Radio from './controls/Radio.svelte';
     import Tabs from './controls/Tabs.svelte';
@@ -50,6 +51,15 @@
             regionMode.substr(0,4) !== 'alle' ?
                 (parentRegion ? parentRegion.id : undefined)  : undefined);
 
+    let _lastQuery = '';
+    beforeUpdate(() => {
+        if (query !== _lastQuery) {
+            selectedTab = 'query';
+            result = null;
+            _lastQuery = query;
+        }
+    });
+n
     const previewTabs = [
         {id: 'query', title: 'GraphQL Query'},
         {id: 'json', title: 'Ergebnis (JSON)'},
@@ -72,7 +82,13 @@
 </script>
 
 <style>
-    textarea, pre { font-family: monospace; }
+    textarea, pre {
+        word-wrap: initial;
+        font-family: monospace;
+        width: 100%;
+        min-height: 350px;
+        padding: 10px
+    }
     .card { margin-bottom: 20px;}
     .container-fluid {
         margin-top: 20px;
@@ -121,20 +137,33 @@
                 <Tabs tabs="{previewTabs}" bind:selected={selectedTab} />
                 <Card noBorderTop={true}>
                     {#if selectedTab === 'query'}
-                    <pre>{query}</pre>
+                    <textarea
+                        on:click="{()=>this.select()}"
+                        class="border rounded"
+                        readonly
+                    >{query}</textarea>
                     {:else if selectedTab === 'json'}
-                    <pre>{JSON.stringify(result, null, 2)}</pre>
+                    <textarea
+                        on:click="{()=>this.select()}"
+                        class="border rounded"
+                        readonly
+                    >{JSON.stringify(result, null, 2)}</textarea>
                     {:else if selectedTab === 'csv'}
                     CSV-Format:&nbsp;&nbsp;<Radio inline={true} bind:value={csvMode} options={csvModeOptions} /><br>
                     Bezeichnungen:&nbsp;&nbsp;<Radio inline={true} bind:value={idMode} options={idModeOptions} /><br>
-                    <pre style="margin-top:20px">{resultToCSV(result,
+                    <textarea
+                        on:click="{()=>this.select()}"
+                        class="border rounded"
+                        readonly
+                        style="margin-top:20px"
+                    >{resultToCSV(result,
                         regionMode,
                         regionMode === 'region' ? regions : parentRegion,
                         statistics,
                         times,
                         csvMode,
                         idMode
-                    )}</pre>
+                    )}</textarea>
                     {/if}
                 </Card>
             </div>
