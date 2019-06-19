@@ -32,7 +32,7 @@ einzelne jahre
 
 einbürgerungstatistik > einbürgerung von ausländern
 
-    ?stats=R12511:BEV008:AUFDA1
+    ?stats=R12511:BEV008
 
 einbürgerung von ausländern mit aufenthaltsdauer von unter 8 jahren
 
