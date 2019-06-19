@@ -17,8 +17,7 @@
         "eslint-plugin-svelte3": "^1.2.3",
         "lodash-es": "^4.17.11",
         "prettier-plugin-svelte": "^0.6.0",
-        "rollup-plugin-json": "^4.0.0",
-        "svelte-bulma-components": "^0.1.5"
+        "rollup-plugin-json": "^4.0.0"
     },
     "devDependencies": {
         "babel-eslint": "^10.0.1",
