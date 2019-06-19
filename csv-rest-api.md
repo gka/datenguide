@@ -39,11 +39,13 @@ einbürgerung von ausländern mit aufenthaltsdauer von unter 8 jahren
     ?stats=R12511:BEV008:AUFDA1:in:AUFDA00B08
 
 einbürgerung von ausländern mit aufenthaltsdauer von unter 8 jahren
-oder von 15 bis unter 20 jahren
+oder von 15 bis unter 20 jahren. mehrere argument-werte werden mit `|`
+voneinander getrennt.
 
-    ?stats=R12511:BEV008:AUFDA1:in:AUFDA00B08,AUFDA15B20
+    ?stats=R12511:BEV008:AUFDA1:in:AUFDA00B08|AUFDA15B20
 
-zweite statistik hinzufügen
+zweite statistik hinzufügen. mehrere statistiken werden mit `,` 
+voneinander getrennt
 
     ?stats=R12511:BEV008:AUFDA1,R12612:BEV001
 
